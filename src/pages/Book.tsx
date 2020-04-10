@@ -1,5 +1,6 @@
 import React from 'react';
-import { StyleSheet, View, Image, Button } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
+import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 import { RootStackParamList } from '../../App';
@@ -21,25 +22,26 @@ const styles = StyleSheet.create({
 
 type NavigationProps = StackNavigationProp<
   RootStackParamList,
-  'Home'
+  'Book'
 >;
+
+type RouteProps = RouteProp<RootStackParamList, 'Book'>;
 
 interface Props {
 	navigation: NavigationProps;
+	route: RouteProps;	
 }
 
-export default function HomePage({ navigation }: Props) {
+export default function BookPage({ route }: Props) {
+	console.log('route', route);
+
+	if (!route.params.bookISBN) {
+		return <Text>ISBN invalid</Text>
+	}
+
   return (
     <View style={styles.container}>
-      <Image style={styles.image} source={{ uri: cockatoo}}></Image>
-      <Button
-        title="Go to BarCodeScanner"
-        onPress={() => navigation.navigate('BarCodeScanner')}
-      />
-      <Button
-        title="Go to BookList"
-        onPress={() => navigation.navigate('BookList')}
-      />
+      <Text>ISBN: {route.params.bookISBN}</Text>
     </View>
   );
 }

@@ -1,8 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet, Button } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
+import { RouteProp } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 
-export default function App() {
+import { RootStackParamList } from '../../App';
+
+type NavigationProps = StackNavigationProp<
+  RootStackParamList,
+  'BarCodeScanner'
+>;
+
+type RouteProps = RouteProp<RootStackParamList, 'BarCodeScanner'>;
+
+interface Props {
+	navigation: NavigationProps;
+	route: RouteProps;	
+}
+
+export default function BarCodeScannerPage({ route, navigation }: Props) {
   const [hasPermission, setHasPermission] = useState<boolean | null>(null);
   const [scanned, setScanned] = useState(false);
 
@@ -15,8 +31,9 @@ export default function App() {
   }, []);
 
   const handleBarCodeScanned = ({ type, data }: { type: string; data: string }) => {
-    setScanned(true);
-    alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+		setScanned(true);
+		route.params.addBook(data);
+    alert(`ISBN-13: ${data} has been scanned!`);
   };
 
   if (hasPermission === null) {
@@ -36,6 +53,7 @@ export default function App() {
         {!scanned && 
 					<BarCodeScanner
 						onBarCodeScanned={handleBarCodeScanned}
+						barCodeTypes={['ean13']}
 						style={StyleSheet.absoluteFillObject}
 					/>
         }     

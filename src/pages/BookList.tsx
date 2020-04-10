@@ -1,6 +1,7 @@
 import React from 'react';
-import { StyleSheet, View, Image, Button } from 'react-native';
+import { StyleSheet, View, Button } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { RouteProp } from '@react-navigation/native';
 
 import { RootStackParamList } from '../../App';
 
@@ -21,25 +22,20 @@ const styles = StyleSheet.create({
 
 type NavigationProps = StackNavigationProp<
   RootStackParamList,
-  'Home'
+  'BookList'
 >;
+
+type RouteProps = RouteProp<RootStackParamList, 'BookList'>;
 
 interface Props {
 	navigation: NavigationProps;
+	route: RouteProps;	
 }
 
-export default function HomePage({ navigation }: Props) {
+export default function BookListPage({ route, navigation }: Props) {
   return (
     <View style={styles.container}>
-      <Image style={styles.image} source={{ uri: cockatoo}}></Image>
-      <Button
-        title="Go to BarCodeScanner"
-        onPress={() => navigation.navigate('BarCodeScanner')}
-      />
-      <Button
-        title="Go to BookList"
-        onPress={() => navigation.navigate('BookList')}
-      />
+        {route.params.books.map(book => <Button title={book} onPress={() =>  navigation.navigate('Book', { bookISBN: book })}>{book}</Button>)}
     </View>
   );
 }
