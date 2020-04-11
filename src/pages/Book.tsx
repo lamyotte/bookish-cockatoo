@@ -34,7 +34,7 @@ export default function BookPage({ route }: Props) {
   }, [])
 
 	if (!route.params.bookId) {
-		return <Text>ISBN invalid</Text>
+		return <Text>Error</Text>
   }
   
   if (!book) {
