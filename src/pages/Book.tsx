@@ -1,24 +1,11 @@
-import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { Text } from 'react-native';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import styled from 'styled-components/native';
 
 import { RootStackParamList } from '../../App';
-
-const cockatoo = 'https://cockatoo-info.com/wp-content/uploads/2019/07/cockatoo-walking-cacatua-alba-768x668.jpg';
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  image: {
-    width: 200,
-    height: 200,
-  },
-});
+import * as dbService from '../services/DatabaseService';
 
 type NavigationProps = StackNavigationProp<
   RootStackParamList,
@@ -33,15 +20,33 @@ interface Props {
 }
 
 export default function BookPage({ route }: Props) {
-	console.log('route', route);
+  const [book, setBook] = useState<dbService.BookDetails | undefined>(undefined);
 
-	if (!route.params.bookISBN) {
+  useEffect(() => {
+    async function fetchBooks() {
+      setBook(await dbService.getBookDetails(route.params.bookId));
+    }
+    fetchBooks();
+  }, [])
+
+	if (!route.params.bookId) {
 		return <Text>ISBN invalid</Text>
-	}
+  }
+  
+  if (!book) {
+    return <Text>Loading...</Text>
+  }
 
   return (
-    <View style={styles.container}>
-      <Text>ISBN: {route.params.bookISBN}</Text>
-    </View>
+    <Layout>
+      <Text>{JSON.stringify(book, null, 2)}</Text>
+    </Layout>
   );
 }
+
+const Layout = styled.View`
+  flex: 1;
+  background-color: #fff;
+  align-items: center;
+  justify-content: center;
+`;
