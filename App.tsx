@@ -13,7 +13,7 @@ const Stack = createStackNavigator();
 
 export type RootStackParamList = {
   Home: undefined;
-  BarCodeScanner: { addBook: (isbn: string) => void};
+  BarCodeScanner: undefined;
   Book: { bookId: string };
   BookList: { serieId: string};
   SerieList: undefined;
@@ -25,7 +25,7 @@ export default function App() {
       <Stack.Navigator>     
         <Stack.Screen name="SerieList" component={SerieListPage} /> 
         <Stack.Screen name="BookList" component={BookListPage} />
-        <Stack.Screen name="BarCodeScanner" component={BarCodeScannerPage} initialParams={{ addBook }} />
+        <Stack.Screen name="BarCodeScanner" component={BarCodeScannerPage} />
         <Stack.Screen name="Book" component={BookPage} />      
       </Stack.Navigator>
     </NavigationContainer>

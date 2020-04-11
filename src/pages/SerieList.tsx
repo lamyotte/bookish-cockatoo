@@ -36,6 +36,7 @@ export default function SerieListPage({ navigation }: Props) {
           <ListItem 
             id={item.series_id}
             text={item.series_name}
+            subText={'Sport, Shonen, BL'} // TODO: add categories
             onPress={() => navigation.navigate('BookList', { serieId: item.series_id })}
           />
         }
