@@ -1,9 +1,10 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { RouteProp } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
+// import { StackNavigationProp } from '@react-navigation/stack';
 
 import { RootStackParamList } from '../../App';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 const cockatoo = 'https://cockatoo-info.com/wp-content/uploads/2019/07/cockatoo-walking-cacatua-alba-768x668.jpg';
 
