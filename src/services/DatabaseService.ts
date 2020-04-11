@@ -1,6 +1,18 @@
 
+export interface Book {
+    title: string;
+    book_id: string;
+    series_name: string;
+    series_id: string;
+}
 
-function listBooks() {
+export interface BookDetails extends Book {
+    isbn_13: string;
+    isbn_10: string;
+    img: string;
+}
+
+export async function listBooks(): Promise<Book[]> {
     return [
         {
             'title': 'Haikyuu, Vol. 1',
@@ -23,7 +35,7 @@ function listBooks() {
     ]
 }
 
-function getBookDetails(book_id: number) {
+export async function getBookDetails(book_id: string): Promise<BookDetails> {
     return {
         'book_id': '1',
         'title': 'Haikyuu, Vol. 1',
@@ -35,7 +47,7 @@ function getBookDetails(book_id: number) {
     }
 }
 
-function getBooksInSeries(series_id: number) {
+export async function getBooksInSeries(series_id: string) {
     return [
         {
             'title': 'Haikyuu, Vol. 1',

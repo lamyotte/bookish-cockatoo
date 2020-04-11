@@ -13,7 +13,7 @@ const Stack = createStackNavigator();
 export type RootStackParamList = {
   Home: undefined;
   BarCodeScanner: { addBook: (isbn: string) => void};
-  Book: { bookISBN: string };
+  Book: { bookId: string };
   BookList: { books: string[]};
 };
 
