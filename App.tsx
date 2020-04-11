@@ -12,24 +12,17 @@ const Stack = createStackNavigator();
 
 export type RootStackParamList = {
   Home: undefined;
-  BarCodeScanner: { addBook: (isbn: string) => void};
+  BarCodeScanner: undefined;
   Book: { bookId: string };
-  BookList: { books: string[]};
+  BookList: undefined;
 };
 
 export default function App() {
-  const [books, setBooks] = useState<string[]>([]); // TODO: list of books fetched from DB
-  
-  const addBook = (isbn: string) => {
-    // TODO: add book to DB
-    setBooks(oldBooks => [...oldBooks, isbn])
-  }
-
   return (
     <NavigationContainer>
       <Stack.Navigator>      
-        <Stack.Screen name="BookList" component={BookList} initialParams={{ books }} />
-        <Stack.Screen name="BarCodeScanner" component={BarCodeScanner} initialParams={{ addBook }} />
+        <Stack.Screen name="BookList" component={BookList} />
+        <Stack.Screen name="BarCodeScanner" component={BarCodeScanner} />
         <Stack.Screen name="Book" component={Book} />      
       </Stack.Navigator>
     </NavigationContainer>

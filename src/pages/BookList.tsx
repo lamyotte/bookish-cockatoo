@@ -30,7 +30,7 @@ export default function BookListPage({ navigation }: Props) {
     <Layout>
       <FlatList
         data={books}
-        renderItem={({ item }) => <Button key={item.book_id} title={item.title} onPress={() =>  navigation.navigate('Book', { bookId: item.book_id })}>{item}</Button>}
+        renderItem={({ item }) => <Button key={item.book_id} title={item.title} onPress={() =>  navigation.navigate('Book', { bookId: item.book_id })} />}
       />
       <FloatingActionButton onPress={() => navigation.navigate('BarCodeScanner')}>
         <PlusIcon>+</PlusIcon>
