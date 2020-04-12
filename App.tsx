@@ -10,7 +10,8 @@ import BookListPage from './src/pages/BookList';
 import SerieListPage from './src/pages/SerieList';
 
 import { getBookInfo } from './src/services/BookApiService'
-import { setupDatabase, saveBook, listBooks, getBooksInSeries } from './src/services/DatabaseService'
+import { saveBook, listBooks, getBooksInSeries } from './src/services/DatabaseService'
+import { setupDatabase } from './src/services/SQLOperationsService'
 
 const Stack = createStackNavigator();
 
@@ -36,7 +37,7 @@ export default function App() {
     let books_in = await getBooksInSeries(1)
     console.log(books_in)
   }
-  
+
   return (
     <NavigationContainer>
       <Stack.Navigator>     
