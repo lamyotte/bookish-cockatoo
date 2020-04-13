@@ -14,26 +14,26 @@ type NavigationProps = StackNavigationProp<
 >;
 
 interface Props {
-	navigation: NavigationProps;
+  navigation: NavigationProps;
 }
 
 export default function SerieListPage({ navigation }: Props) {
   const [series, setSeries] = useState<dbService.Serie[]>([]);
 
   useEffect(() => {
-    async function fetchBooks() {
-      setSeries(await dbService.listSeries());
-    }
     fetchBooks();
   }, [])
 
+  const fetchBooks = async () => {
+    setSeries(await dbService.listSeries());
+  }
 
   return (
     <Layout>
       <FlatList
         data={series}
-        renderItem={({ item }) => 
-          <ListItem 
+        renderItem={({ item }) =>
+          <ListItem
             id={item.series_id}
             text={item.series_name}
             subText={'Sport, Shonen, BL'} // TODO: add categories

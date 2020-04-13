@@ -19,7 +19,7 @@ export type RootStackParamList = {
   Home: undefined;
   BarCodeScanner: undefined;
   Book: { bookId: string };
-  BookList: { serieId: string};
+  BookList: { serieId: string };
   SerieList: undefined;
 };
 
@@ -28,23 +28,13 @@ export default function App() {
     setupDatabase()
   });
 
-  const addBook = async (isbn: string) => {
-    // TODO: add book to DB
-    let book = await getBookInfo(isbn)
-    await saveBook(book)
-    let books = await listBooks()
-    console.log(books)
-    let books_in = await getBooksInSeries(1)
-    console.log(books_in)
-  }
-
   return (
     <NavigationContainer>
-      <Stack.Navigator>     
-        <Stack.Screen name="SerieList" component={SerieListPage} /> 
+      <Stack.Navigator>
+        <Stack.Screen name="SerieList" component={SerieListPage} />
         <Stack.Screen name="BookList" component={BookListPage} />
         <Stack.Screen name="BarCodeScanner" component={BarCodeScannerPage} />
-        <Stack.Screen name="Book" component={BookPage} />      
+        <Stack.Screen name="Book" component={BookPage} />
       </Stack.Navigator>
     </NavigationContainer>
   );

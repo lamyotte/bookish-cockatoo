@@ -45,8 +45,10 @@ function destroyDatabase() {
 function select(tables: string, values: string): Promise<SQLResultSetRowList> {
   return new Promise((resolve, reject) => {
     const db = SQLite.openDatabase('collections', db_version);
+    const query: string = `select ${values} from ${tables}`
+    console.log(query)
     db.transaction(tx => {
-      tx.executeSql(`select ${values} from ${tables}`, [], (_, { rows }) => {
+      tx.executeSql(query, [], (_, { rows }) => {
         // console.log(JSON.stringify(rows))
         resolve(rows);
       });
@@ -59,8 +61,10 @@ function select(tables: string, values: string): Promise<SQLResultSetRowList> {
 function selectWhere(tables: string, values: string, where: string, join: string): Promise<SQLResultSetRowList> {
   return new Promise((resolve, reject) => {
     const db = SQLite.openDatabase('collections', db_version);
+    const query: string = `select ${values} from ${tables} ${join} where ${where}`
+    console.log(query)
     db.transaction(tx => {
-      tx.executeSql(`select ${values} from ${tables} ${join} where ${where}`, [], (_, { rows }) => {
+      tx.executeSql(query, [], (_, { rows }) => {
         // console.log(JSON.stringify(rows))
         resolve(rows);
       });
