@@ -7,13 +7,16 @@ import { ToastAndroid } from 'react-native';
 import { RootStackParamList } from '../../App';
 import styled from 'styled-components/native';
 
+import { getBookInfo } from '../services/BookApiService'
+import { saveBook } from '../services/DatabaseService'
+
 type NavigationProps = StackNavigationProp<
   RootStackParamList,
   'BarCodeScanner'
 >;
 
 interface Props {
-	navigation: NavigationProps;
+  navigation: NavigationProps;
 }
 
 export default function BarCodeScannerPage({ navigation }: Props) {
@@ -28,14 +31,19 @@ export default function BarCodeScannerPage({ navigation }: Props) {
     askPermission();
   }, []);
 
-  const handleBarCodeScanned = (event: BarCodeEvent) => {
-    if (event.data != barCodeEvent?.data) {      
-      
+  const handleBarCodeScanned = async (event: BarCodeEvent) => {
+    if (event.data != barCodeEvent?.data) {
+
       // TODO: find book in book API
       // TODO: add book to DB
 
       setBarCodeEvent(event);
       ToastAndroid.show(`ISBN-13: ${event.data} has been scanned!`, ToastAndroid.SHORT);
+      let book = await getBookInfo(event.data)
+      console.log("HERE!")
+      //await saveBook(book)
+      console.log(book)
+      await saveBook(book)
     }
   };
 
@@ -51,7 +59,7 @@ export default function BarCodeScannerPage({ navigation }: Props) {
       <StyledBarCodeScanned
         onBarCodeScanned={handleBarCodeScanned}
         barCodeTypes={['ean13']}
-      />   
+      />
       <DoneButton title='Done' onPress={navigation.goBack} />
     </Layout>
   );

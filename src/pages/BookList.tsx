@@ -44,16 +44,16 @@ export default function BookListPage({ route, navigation }: Props) {
     <Layout>
       <FlatList
         data={books}
-        renderItem={({ item }) => 
-          <ListItem 
+        renderItem={({ item }) =>
+          <ListItem
             id={item.book_id}
             text={item.title}
             subText={item.series_name}
-            thumbnail={'http://books.google.com/books/content?id=zb0bDAAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api'} // TODO: add real thumbnail (imageLinks.smallThumbnail)
+            thumbnail={item.img} // TODO: add real thumbnail (imageLinks.smallThumbnail)
             onPress={() => navigation.navigate('Book', { bookId: item.book_id })}
           />
         }
-      />   
+      />
       <FloatingActionButton onPress={() => navigation.navigate('BarCodeScanner')} />
     </Layout>
   );

@@ -18,13 +18,13 @@ type NavigationProps = StackNavigationProp<
 type RouteProps = RouteProp<RootStackParamList, 'Book'>;
 
 interface Props {
-	navigation: NavigationProps;
-	route: RouteProps;	
+  navigation: NavigationProps;
+  route: RouteProps;
 }
 
 export default function BookPage({ route }: Props) {
   const [book, setBook] = useState<dbService.BookDetails | undefined>(undefined);
-  const [editMode, setEditMode]  = useState<boolean>(false);
+  const [editMode, setEditMode] = useState<boolean>(false);
 
   useEffect(() => {
     async function fetchBooks() {
@@ -33,10 +33,10 @@ export default function BookPage({ route }: Props) {
     fetchBooks();
   }, [])
 
-	if (!route.params.bookId) {
-		return <Text>Error</Text>
+  if (!route.params.bookId) {
+    return <Text>Error</Text>
   }
-  
+
   if (!book) {
     return <Text>Loading...</Text>
   }
@@ -57,23 +57,23 @@ export default function BookPage({ route }: Props) {
   return (
     <Layout>
       <Content>
-      <Title>{book.title}</Title>
-      <ResumeContainer>
-        <Cover source={{ uri: 'http://books.google.com/books/content?id=zb0bDAAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api'}} />
-        <Resume>
-          <SerieAuthorContainer>
-            <Serie>{book.series_name}</Serie>
-            <Author>by {'Reki Kawahara'}</Author>
-          </SerieAuthorContainer>
-          <Categories>{'Sports, Shonen, BL'}</Categories>
-        </Resume>
-      </ResumeContainer>
-      <List.Accordion
-        title='Informations'
-      >
-        <LabeledInput label='ISBN 10' value={book.isbn_10} disabled />
-        <LabeledInput label='ISBN 13' value={book.isbn_13} disabled />
-      </List.Accordion>
+        <Title>{book.title}</Title>
+        <ResumeContainer>
+          <Cover source={{ uri: book.img }} />
+          <Resume>
+            <SerieAuthorContainer>
+              <Serie>{book.series_name}</Serie>
+              <Author>by {'Reki Kawahara'}</Author>
+            </SerieAuthorContainer>
+            <Categories>{'Sports, Shonen, BL'}</Categories>
+          </Resume>
+        </ResumeContainer>
+        <List.Accordion
+          title='Informations'
+        >
+          <LabeledInput label='ISBN 10' value={book.isbn_10} disabled />
+          <LabeledInput label='ISBN 13' value={book.isbn_13} disabled />
+        </List.Accordion>
       </Content>
       <Footer>
         {!editMode && <Button text='Edit Book' onPress={startEditing} />}
