@@ -12,6 +12,11 @@ export interface BookDetails extends Book {
     img: string;
 }
 
+export interface Serie {
+    series_name: string;
+    series_id: string;
+}
+
 export async function listBooks(): Promise<Book[]> {
     return [
         {
@@ -29,6 +34,19 @@ export async function listBooks(): Promise<Book[]> {
         {
             'title': 'Ten Count, Vol. 1',
             'book_id': '3',
+            'series_name': 'Ten Count',
+            'series_id': '2',
+        }
+    ]
+}
+
+export async function listSeries(): Promise<Serie[]> {
+    return [
+        {
+            'series_name': 'Haikyuu',
+            'series_id': '1',
+        },
+        {
             'series_name': 'Ten Count',
             'series_id': '2',
         }
